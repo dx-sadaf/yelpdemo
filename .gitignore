@@ -31,3 +31,4 @@ pickle-email-*.html
 bower.json
 
 /.idea
+.env
