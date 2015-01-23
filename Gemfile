@@ -40,3 +40,5 @@ gem 'spring',        group: :development
 
 gem 'twitter-bootstrap-rails'
 gem 'pg', group: :production
+gem 'carrierwave'
+gem 'mini_magick'

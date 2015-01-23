@@ -1,4 +1,4 @@
-<%= form_for @restaurant, :html => { :class => "form-horizontal restaurant" } do |f| %>
+<%= form_for @restaurant, :html => { :class => "form-horizontal restaurant", multipart: true } do |f| %>
 
     <% if @restaurant.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
@@ -36,6 +36,7 @@
     </div>
     <%= error_span(@restaurant[:phone]) %>
   </div>
+
   <div class="control-group">
     <%= f.label :website, :class => 'control-label' %>
     <div class="controls">
@@ -43,6 +44,14 @@
     </div>
     <%= error_span(@restaurant[:website]) %>
   </div>
+
+    <div class="control-group">
+      <%= f.label :image, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.file_field :image, :class => 'form-control' %>
+      </div>
+      <%= error_span(@restaurant[:image]) %>
+    </div>
 
 
   <%= f.submit nil, :class => 'btn btn-primary' %>

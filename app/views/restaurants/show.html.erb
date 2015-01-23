@@ -3,16 +3,24 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @restaurant.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
-  <dd><%= @restaurant.address %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:phone) %>:</strong></dt>
-  <dd><%= @restaurant.phone %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:website) %>:</strong></dt>
-  <dd><%= @restaurant.website %></dd>
-</dl>
+<div class="row">
+    <div class="col-md-4">
+        <%= image_tag @restaurant.image_url %>
+    </div>
+    <div class="col-md-8">
+        <dl class="dl-horizontal">
+          <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+          <dd><%= @restaurant.name %></dd>
+          <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
+          <dd><%= @restaurant.address %></dd>
+          <dt><strong><%= model_class.human_attribute_name(:phone) %>:</strong></dt>
+          <dd><%= @restaurant.phone %></dd>
+          <dt><strong><%= model_class.human_attribute_name(:website) %>:</strong></dt>
+          <dd><%= @restaurant.website %></dd>
+        </dl>
+    </div>
+  <div class="clearfix"></div>
+</div>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               restaurants_path, :class => 'btn btn-default'  %>
