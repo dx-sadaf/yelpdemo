@@ -1,3 +1,7 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+
 <%= form_for @restaurant, :html => { :class => "form-horizontal restaurant", multipart: true } do |f| %>
 
     <% if @restaurant.errors.any? %>
@@ -15,47 +19,55 @@
     </div>
   <% end %>
 
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :name, :class => 'control-label' %>
-    <div class="controls">
+    <div class="form-controls">
       <%= f.text_field :name, :class => 'form-control' %>
     </div>
     <%= error_span(@restaurant[:name]) %>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :address, :class => 'control-label' %>
-    <div class="controls">
+    <div class="form-controls">
       <%= f.text_field :address, :class => 'form-control' %>
     </div>
     <%= error_span(@restaurant[:address]) %>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :phone, :class => 'control-label' %>
-    <div class="controls">
+    <div class="form-controls">
       <%= f.text_field :phone, :class => 'form-control' %>
     </div>
     <%= error_span(@restaurant[:phone]) %>
   </div>
 
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :website, :class => 'control-label' %>
-    <div class="controls">
+    <div class="form-controls">
       <%= f.text_field :website, :class => 'form-control' %>
     </div>
     <%= error_span(@restaurant[:website]) %>
   </div>
 
-    <div class="control-group">
+    <div class="form-group">
       <%= f.label :image, :class => 'control-label' %>
-      <div class="controls">
+      <div class="form-controls">
         <%= f.file_field :image, :class => 'form-control' %>
       </div>
       <%= error_span(@restaurant[:image]) %>
     </div>
 
 
-  <%= f.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            restaurants_path, :class => 'btn btn-default' %>
+    <div class="form-group">
+        <%= f.submit nil, :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")), restaurants_path, :class => 'btn btn-default' %>
+    </div>
+
+
+
 
 <% end %>
+
+
+  </div>
+</div>
