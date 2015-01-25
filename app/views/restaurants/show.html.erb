@@ -8,7 +8,7 @@
     <div class="col-md-3">
 
       <%= image_tag @restaurant.image_url%>
-
+      <br /><br />
       <div class="star-rating" data-score="<%=@avg_rating %>"></div>
       <p><%= "#{@reviews.length} reviews"%></p>
       <p><strong><%= model_class.human_attribute_name(:address) %>:</strong>
@@ -18,20 +18,32 @@
       <p><strong><%= model_class.human_attribute_name(:website) %>:</strong>
       <%= link_to @restaurant.website,@restaurant.website %></p>
 
+      <% if user_signed_in? %>
+        <%= link_to "Write a  Review", new_restaurant_review_path(@restaurant), :class => 'btn btn-primary'  %>
+      <% end %>
 
-      <%= link_to "Wite a  Review", new_restaurant_review_path(@restaurant), :class => 'btn btn-primary'  %>
-      <div class="">
-        <%= link_to t('.back', :default => t("helpers.links.back")),
-                    restaurants_path  %> |
-        <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                    edit_restaurant_path(@restaurant) %> |
+      <br /><br />
 
-        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                    restaurant_path(@restaurant),
-                    :method => 'delete',
-                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }
-        %>
-      </div>
+      <iframe
+      width="230"
+      height="230"
+      frameborder="0" style="border:0"
+      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDYwTOCK8GFuDQvWeJiiSoraMSY5Ob6__4&q=<%= @restaurant.address.parameterize %>&zoom=14">
+      </iframe>
+
+      <% if user_signed_in? && current_user.admin? %>
+          <div class="">
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                        edit_restaurant_path(@restaurant) %> |
+
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                        restaurant_path(@restaurant),
+                        :method => 'delete',
+                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }
+            %>
+          </div>
+      <% end %>
+
 
     </div>
     <div class="col-md-9">
@@ -44,9 +56,24 @@
                 <tbody>
                     <% @reviews.each do |review| %>
                     <tr>
-                      <td>
+                      <td class="col-md-3">
+                        <h4><%= "#{review.user.first_name.capitalize} #{review.user.last_name[0].capitalize}." %></h4>
+                        <p><%= review.created_at.strftime("%-d %b %Y")%></p>
+                      </td>
+                      <td class="col-md-9">
                         <div class="star-rating" data-score="<%= review.rating %>"></div>
                         <p><%= h(review.comment).gsub(/\n/, '<br/>').html_safe %></p>
+                        <% if user_signed_in? %>
+                            <% if (review.user == current_user) || (current_user.admin?) %>
+                                <p>
+                                <%= link_to "Edit", edit_restaurant_review_path(@restaurant, review) %> |
+                                <%= link_to "Delete", restaurant_review_path(@restaurant, review), method: :delete,
+                                    :data => {:confirm => t('.confirm', :default => t("helpers.link.confirm", :default => 'Are you sure?') )}
+                                %>
+                                </p>
+                            <% end %>
+                        <% end %>
+
                       </td>
                     </tr>
                     <% end %>

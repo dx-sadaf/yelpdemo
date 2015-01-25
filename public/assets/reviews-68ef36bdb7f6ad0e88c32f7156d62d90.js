@@ -1,0 +1,1 @@
+(function(){jQuery(document).ready(function(){return jQuery(".star-rating").raty({readOnly:!0,path:"/assets/images/",score:function(){return jQuery(this).attr("data-score")}}),jQuery("#star-rating").raty({path:"/assets/images/",scoreName:"review[rating]"})})}).call(this);

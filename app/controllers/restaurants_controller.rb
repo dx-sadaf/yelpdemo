@@ -1,10 +1,21 @@
 class RestaurantsController < ApplicationController
+
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show, :search]
+  before_action :check_user, except: [:index, :show, :search]
 
   # GET /restaurants
   # GET /restaurants.json
   def index
     @restaurants = Restaurant.all
+  end
+
+  def search
+    if params[:search].present?
+      @restaurants = Restaurant.where( "name like '%#{params[:search]}%' OR address like '%#{params[:search]}%'")
+    else
+      @restaurants = Restaurant.all
+    end
   end
 
   # GET /restaurants/1
@@ -67,6 +78,12 @@ class RestaurantsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant
       @restaurant = Restaurant.find(params[:id])
+    end
+
+    def check_user
+      unless (user_signed_in? && current_user.admin?)
+        redirect_to root_url, alert: "Sorry, only admins can do that!"
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
