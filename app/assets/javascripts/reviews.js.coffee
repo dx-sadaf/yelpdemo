@@ -11,4 +11,9 @@ jQuery(document).ready( ->
       jQuery(this).attr('data-score')
   })
 
+  jQuery('#star-rating').raty({
+    path:'/assets/images/',
+    scoreName:'review[rating]'
+  })
+
 )
