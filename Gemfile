@@ -43,3 +43,5 @@ gem 'pg', group: :production
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'devise'
+
+gem 'omniauth-facebook'
