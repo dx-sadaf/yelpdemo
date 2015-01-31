@@ -33,3 +33,5 @@ bower.json
 /.idea
 .env
 /public/uploads/restaurant/image/*
+# Ignore application configuration
+/config/application.yml
